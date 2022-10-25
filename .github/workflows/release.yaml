@@ -1,0 +1,59 @@
+name: Update for Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "version that should be released"
+        required: true
+        type: string
+  repository_dispatch:
+    types: [update]
+
+jobs:
+  release:
+    runs-on: windows-2019
+    steps:
+      # Checkout the branch
+      - name: checkout
+        uses: actions/checkout@v3
+      # Determine which version should be released based on event type
+      - name: Set Version (Workflow Dispatch)
+        shell: bash
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo VERSION=${{ inputs.version }} >> $GITHUB_ENV
+      - name: Set Version (Repository Dispatch)
+        if: github.event_name == 'repository_dispatch'
+        shell: bash
+        run: |
+          echo VERSION=${{ github.event.client_payload.version }} >> $GITHUB_ENV
+      - name: Unified Version
+        id: version
+        run: |
+          echo "Version: $VERSION"
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Install AU
+        run: cinst au
+
+      - name: Update all
+        run: updateall -Options (@{Push = $true; IgnoreOn = @('Timeout', 'Access denied') })
+        env:
+          api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
+          VERSION: ${{ steps.version.outputs.version }}
+
+      # Commit changes
+      - name: setup git config
+        shell: bash
+        run: |
+          git config user.name "Mondoo Tools"
+          git config user.email "<tools@mondoo.com>"
+
+      - name: commit
+        shell: bash
+        run: |
+          echo '${{ steps.version.outputs.version }}'
+          git add ./cnquery
+          git add ./cnspec
+          git commit -m '${{ steps.version.outputs.version }}'
+          git push origin master
