@@ -10,7 +10,7 @@
       <dependency id="cnquery" />
     </dependencies>
 
-    <title>cnspec</title>
+    <title>Mondoo cnspec</title>
     <authors>Mondoo</authors>
     <projectUrl>https://github.com/mondoohq/cnspec</projectUrl>
     <!--<iconUrl>http://cdn.rawgit.com/__REPLACE_YOUR_REPO__/master/icons/cnquery.png</iconUrl>-->

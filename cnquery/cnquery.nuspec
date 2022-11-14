@@ -12,7 +12,7 @@
     <projectUrl>https://github.com/mondoohq/cnquery</projectUrl>
     <!--<iconUrl>http://cdn.rawgit.com/__REPLACE_YOUR_REPO__/master/icons/cnquery.png</iconUrl>-->
     <copyright>2022 Mondoo, Inc</copyright>
-    <licenseUrl>https://www.mozilla.org/en-US/MPL/2.0/</licenseUrl>
+    <licenseUrl>https://github.com/mondoohq/cnquery/blob/main/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <docsUrl>https://mondoo.com/docs</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
