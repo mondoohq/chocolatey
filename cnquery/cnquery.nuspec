@@ -11,10 +11,10 @@
     <authors>Mondoo</authors>
     <projectUrl>https://github.com/mondoohq/cnquery</projectUrl>
     <!--<iconUrl>http://cdn.rawgit.com/__REPLACE_YOUR_REPO__/master/icons/cnquery.png</iconUrl>-->
-    <copyright>2022 Mondoo, Inc</copyright>
+    <copyright>2022 Mondoo, Inc.</copyright>
     <licenseUrl>https://github.com/mondoohq/cnquery/blob/main/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <docsUrl>https://mondoo.com/docs</docsUrl>
+    <docsUrl>https://mondoo.com/docs/cnquery/</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
     <tags>cnquery mondoo inventory cloud kubernetes server</tags>
     <summary>Cloud-Native Asset Inventory Framework</summary>
