@@ -17,8 +17,8 @@
     <docsUrl>https://mondoo.com/docs/cnquery/</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
     <tags>cnquery mondoo inventory cloud kubernetes server</tags>
-    <summary>Cloud-Native Asset Inventory Framework</summary>
-    <description>Cloud-Native Asset Inventory Framework</description>
+    <summary>cnquery is an open source, cloud-native tool that answers every question about your infrastructure. It provides quick insights into every major technology platform used by developers, security engineers, and DevOps teams today.</summary>
+    <description>cnquery is an open source, cloud-native tool that answers every question about your infrastructure. It provides quick insights into every major technology platform used by developers, security engineers, and DevOps teams today.</description>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
