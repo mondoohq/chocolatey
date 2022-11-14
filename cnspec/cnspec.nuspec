@@ -19,7 +19,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <docsUrl>https://mondoo.com/docs</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnspec/issues</bugTrackerUrl>
-    <tags>cnspec mondoo</tags>
+    <tags>cnspec mondoo security compliance</tags>
     <summary>Open source, cloud-native security and policy project</summary>
     <description>cnspec is a cloud-native solution to assess the security and compliance of your business-critical infrastructure. Using policy as code, cnspec finds vulnerabilities and misconfigurations on all systems in your infrastructure including: public and private cloud environments, Kubernetes clusters, containers, container registries, servers and endpoints, SaaS products, infrastructure as code, APIs, and more.</description>
   </metadata>

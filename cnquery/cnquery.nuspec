@@ -16,7 +16,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <docsUrl>https://mondoo.com/docs</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
-    <tags>cnquery mondoo</tags>
+    <tags>cnquery mondoo inventory cloud kubernetes server</tags>
     <summary>Cloud-Native Asset Inventory Framework</summary>
     <description>Cloud-Native Asset Inventory Framework</description>
   </metadata>
