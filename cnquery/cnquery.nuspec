@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>cnquery</id>
+    <version>7.4.0</version>
+    <packageSourceUrl>https://github.com/mondoohq/cnquery</packageSourceUrl>
+    <owners>Mondoo</owners>
+
+    <title>Mondoo cnquery</title>
+    <authors>Mondoo</authors>
+    <projectUrl>https://github.com/mondoohq/cnquery</projectUrl>
+    <iconUrl>https://mondoo.com/mondoo_choco_logo.jpg</iconUrl>
+    <copyright>2022 Mondoo, Inc.</copyright>
+    <licenseUrl>https://github.com/mondoohq/cnquery/blob/main/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <docsUrl>https://mondoo.com/docs/cnquery/</docsUrl>
+    <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
+    <releaseNotes>[Release Notes](https://mondoo.com/releases/)</releaseNotes>
+    <tags>cnquery mondoo inventory cloud kubernetes server</tags>
+    <summary>cnquery is an open source, cloud-native tool that answers every question about your infrastructure. It provides quick insights into every major technology platform used by developers, security engineers, and DevOps teams today.</summary>
+    <description>cnquery is an open source, cloud-native tool that answers every question about your infrastructure. It provides quick insights into every major technology platform used by developers, security engineers, and DevOps teams today.</description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
