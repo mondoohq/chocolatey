@@ -1,9 +1,9 @@
 ﻿$ErrorActionPreference = 'Stop'; # stop on all errors
 $toolsDir   = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$version  = '7.4.0'
+$version  = '7.5.1'
 $url      = "https://releases.mondoo.com/cnspec/${version}/cnspec_${version}_windows_amd64.zip"
-$checksum = '8ac2374e4e03ae36dd1713e0959140bd0cb32112628f250bd0bc9278363e342f'
+$checksum = '44088c05c4b4f96c5b963fe9f6b6bdfd6553de5dd33f7925aa3d33d55a21e851'
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
