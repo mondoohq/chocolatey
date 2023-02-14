@@ -38,7 +38,7 @@ jobs:
         run: cinst au
 
       - name: Update all
-        run: updateall
+        run: updateall -Options ([ordered]@{Push = $true})
         env:
           api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
           VERSION: ${{ steps.version.outputs.version }}
