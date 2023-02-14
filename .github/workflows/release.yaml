@@ -29,6 +29,7 @@ jobs:
           echo VERSION=${{ github.event.client_payload.version }} >> $GITHUB_ENV
       - name: Unified Version
         id: version
+        shell: bash
         run: |
           echo "Version: $VERSION"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
@@ -55,5 +56,5 @@ jobs:
           echo '${{ steps.version.outputs.version }}'
           git add ./cnquery
           git add ./cnspec
-          git commit -m '${{ steps.version.outputs.version }}'
-          git push origin master
+          git commit -m 'Version Update ${{ steps.version.outputs.version }}'
+          git push origin main
