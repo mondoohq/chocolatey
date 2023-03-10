@@ -38,14 +38,15 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: chocolatey/choco:latest
-          options: -v ${{ github.workspace }}:/packages -e CHOCO_API_KEY=${{ secrets.CHOCOLATEY_API_KEY }}
+          options: -v ${{ github.workspace }}:/packages -e CHOCO_API_KEY=${{ secrets.CHOCOLATEY_API_KEY }} -e VERSION=${{ steps.version.outputs.version }}
           run: |
             for pkg in cnquery cnspec; do
               echo "------- PROCESSING ${pkg} ----------------------"
               cd /packages/$pkg
+              bash generate.sh
               choco apikey --key ${CHOCO_API_KEY} --source https://push.chocolatey.org/
               choco pack
-              choco push
+              #choco push
             done
             echo 'Go check for the moderation status:'
             echo 'Mondoo Moderation Queue: https://community.chocolatey.org/packages?q=tag%3Amondoo&moderatorQueue=true&moderationStatus=all-statuses&prerelease=false&sortOrder=relevance'
