@@ -1,17 +1,18 @@
-name: Update for Release
+name: Update Chocolatey Releases
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: "version that should be released"
+        description: "Version to release"
         required: true
         type: string
+        default: "v8.0.0"
   repository_dispatch:
     types: [update]
 
 jobs:
   release:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     steps:
       # Checkout the branch
       - name: checkout
@@ -34,29 +35,17 @@ jobs:
           echo "Version: $VERSION"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
-      # Install the Chocolatey Automatic Package Updater Module 
-      - name: Install AU
-        run: cinst au
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: chocolatey/choco:latest
+          options: -v ${{ github.workspace }}:/packages -e CHOCO_API_KEY=${{ secrets.CHOCOLATEY_API_KEY }}
+          run: |
+            for pkg in cnquery cnspec; do
+              echo "------- PROCESSING ${pkg} ----------------------"
+              cd /packages/$pkg
+              choco apikey --key ${CHOCO_API_KEY} --source https://push.chocolatey.org/
+              choco pack
+              #choco push  ##<--- Disable this for testing
+            done
 
-      # Use Update-AUPackages ('updateall' alias) to update all packages
-      - name: Update all
-        run: $au_Force = $true; updateall -Options ([ordered]@{Push = $true})
-        env:
-          api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
-          VERSION: ${{ steps.version.outputs.version }}
 
-      # Commit changes
-      - name: setup git config
-        shell: bash
-        run: |
-          git config user.name "Mondoo Tools"
-          git config user.email "<tools@mondoo.com>"
-
-      - name: commit
-        shell: bash
-        run: |
-          echo '${{ steps.version.outputs.version }}'
-          git add ./cnquery
-          git add ./cnspec
-          git commit -m 'Version Update ${{ steps.version.outputs.version }}'
-          git push origin main
