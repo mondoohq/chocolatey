@@ -1,9 +1,22 @@
+#!/bin/bash
+
+
+if [[ $VERSION = "" ]]; then
+	echo "ERROR: You must supply a version number"
+	exit 1
+fi
+
+rm -rf cnquery/
+mkdir cnquery && cd cnquery
+
+echo "Generating NuSpec"
+cat >cnquery.nuspec <<NUSPEC
 <?xml version="1.0" encoding="utf-8"?>
 
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>cnquery</id>
-    <version>8.0.0</version>
+    <version>${VERSION}</version>
     <packageSourceUrl>https://github.com/mondoohq/cnquery</packageSourceUrl>
     <owners>Mondoo</owners>
 
@@ -25,3 +38,29 @@
     <file src="tools\**" target="tools" />
   </files>
 </package>
+NUSPEC
+
+
+CHECKSUM=`curl -s https://install.mondoo.com/package/cnquery/windows/amd64/zip/${VERSION}/sha256`
+
+echo "Generating Install Script"
+mkdir tools
+cat >tools/chocolateyInstall.ps1 <<CHOCOSTALL
+\$ErrorActionPreference = 'Stop'; # stop on all errors
+\$toolsDir   = "\$(Split-Path -parent \$MyInvocation.MyCommand.Definition)"
+
+\$version  = '${VERSION}'
+\$url      = "https://releases.mondoo.com/cnquery/${VERSION}/cnquery_${VERSION}_windows_amd64.zip"
+\$checksum = '${CHECKSUM}'
+
+\$packageArgs = @{
+  packageName   = \$env:ChocolateyPackageName
+  unzipLocation = \$toolsDir
+  url64bit      = \$url
+
+  checksum64    = \$checksum
+  checksumType64= 'sha256' #default is checksumType
+}
+
+Install-ChocolateyZipPackage @packageArgs 
+CHOCOSTALL
