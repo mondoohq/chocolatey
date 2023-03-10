@@ -1,20 +1,21 @@
-name: Update for Release
+name: Update Chocolatey Releases
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: "version that should be released"
+        description: "Version to release"
         required: true
         type: string
+        default: "8.0.0"
   repository_dispatch:
     types: [update]
 
 jobs:
-  release:
-    runs-on: windows-2019
+  chocotize:
+    runs-on: ubuntu-latest
     steps:
       # Checkout the branch
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
       # Determine which version should be released based on event type
       - name: Set Version (Workflow Dispatch)
@@ -34,29 +35,31 @@ jobs:
           echo "Version: $VERSION"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
-      # Install the Chocolatey Automatic Package Updater Module 
-      - name: Install AU
-        run: cinst au
-
-      # Use Update-AUPackages ('updateall' alias) to update all packages
-      - name: Update all
-        run: $au_Force = $true; updateall -Options ([ordered]@{Push = $true})
-        env:
-          api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
-          VERSION: ${{ steps.version.outputs.version }}
-
-      # Commit changes
-      - name: setup git config
+      - name: Generate Packages
         shell: bash
         run: |
-          git config user.name "Mondoo Tools"
-          git config user.email "<tools@mondoo.com>"
+          for pkg in cnquery cnspec; do
+            echo "------- GENERATING ${pkg} ----------------------"
+            VERSION=${{ steps.version.outputs.version }} bash ${pkg}-generate.sh
+            echo ""
+            echo "Install script:"
+            cat ${pkg}/tools/chocolateyInstall.ps1
+            echo "--------"
+          done
 
-      - name: commit
-        shell: bash
-        run: |
-          echo '${{ steps.version.outputs.version }}'
-          git add ./cnquery
-          git add ./cnspec
-          git commit -m 'Version Update ${{ steps.version.outputs.version }}'
-          git push origin main
+      - name: Update Chocolatey Packages
+        uses: addnab/docker-run-action@v3
+        with:
+          image: chocolatey/choco:latest
+          options: -v ${{ github.workspace }}:/packages -e CHOCO_API_KEY=${{ secrets.CHOCOLATEY_API_KEY }} -e VERSION=${{ steps.version.outputs.version }}
+          run: |
+            for pkg in cnquery cnspec; do
+              echo "------- PROCESSING ${pkg} ----------------------"
+              cd /packages/$pkg
+              choco apikey --key ${CHOCO_API_KEY} --source https://push.chocolatey.org/
+              choco pack
+              choco push
+            done
+            echo 'Go check for the moderation status:'
+            echo 'Mondoo Moderation Queue: https://community.chocolatey.org/packages?q=tag%3Amondoo&moderatorQueue=true&moderationStatus=all-statuses&prerelease=false&sortOrder=relevance'
+
