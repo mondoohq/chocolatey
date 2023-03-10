@@ -6,7 +6,7 @@ on:
         description: "Version to release"
         required: true
         type: string
-        default: "v8.0.0"
+        default: "8.0.0"
   repository_dispatch:
     types: [update]
 
