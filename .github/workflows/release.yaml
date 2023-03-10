@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout the branch
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
       # Determine which version should be released based on event type
       - name: Set Version (Workflow Dispatch)
@@ -42,6 +42,9 @@ jobs:
             echo "------- GENERATING ${pkg} ----------------------"
             VERSION=${{ steps.version.outputs.version }} bash ${pkg}-generate.sh
             echo ""
+            echo "Install script:"
+            cat ${pkg}/tools/chocolateyInstall.ps1
+            echo "--------"
           done
 
       - name: Update Chocolatey Packages
