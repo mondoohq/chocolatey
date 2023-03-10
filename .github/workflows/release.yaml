@@ -34,11 +34,13 @@ jobs:
           echo "Version: $VERSION"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
 
+      # Install the Chocolatey Automatic Package Updater Module 
       - name: Install AU
         run: cinst au
 
+      # Use Update-AUPackages ('updateall' alias) to update all packages
       - name: Update all
-        run: updateall -Options ([ordered]@{Push = $true})
+        run: $au_Force = $true; updateall -Options ([ordered]@{Push = $true})
         env:
           api_key: ${{ secrets.CHOCOLATEY_API_KEY }}
           VERSION: ${{ steps.version.outputs.version }}
