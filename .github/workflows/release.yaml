@@ -58,7 +58,7 @@ jobs:
               cd /packages/$pkg
               choco apikey --key ${CHOCO_API_KEY} --source https://push.chocolatey.org/
               choco pack
-              choco push
+              choco push --source=https://push.chocolatey.org/
             done
             echo 'Go check for the moderation status:'
             echo 'Mondoo Moderation Queue: https://community.chocolatey.org/packages?q=tag%3Amondoo&moderatorQueue=true&moderationStatus=all-statuses&prerelease=false&sortOrder=relevance'
