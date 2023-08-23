@@ -25,7 +25,7 @@ cat >cnquery.nuspec <<NUSPEC
     <projectUrl>https://github.com/mondoohq/cnquery</projectUrl>
     <iconUrl>https://mondoo.com/mondoo_choco_logo.jpg</iconUrl>
     <copyright>2022 Mondoo, Inc.</copyright>
-    <licenseUrl>https://github.com/mondoohq/cnquery/blob/main/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://raw.githubusercontent.com/mondoohq/cnquery/617d62a9117f10c52872cad85ddf689d09140434/LICENSE.txt</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <docsUrl>https://mondoo.com/docs/cnquery/</docsUrl>
     <bugTrackerUrl>https://github.com/mondoohq/cnquery/issues</bugTrackerUrl>
